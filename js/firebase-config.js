@@ -2,7 +2,7 @@
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyAZBsZGa_oibrh9sZwZSvmxMKmzWd8rI88",
-  authDomain: "budget-c37e0.firebaseapp.com",
+  authDomain: "difains.github.io",
   projectId: "budget-c37e0",
   storageBucket: "budget-c37e0.firebasestorage.app",
   messagingSenderId: "110975779165",

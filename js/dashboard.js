@@ -15,6 +15,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // 네비게이션 버튼 이벤트 리스너 추가
+    document.getElementById('calendarBtn').addEventListener('click', function() {
+        window.location.href = 'calendar.html';
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', function() {
+        confirmLogout();
+    });
+
     // 기간 선택 이벤트
     document.getElementById('periodType').addEventListener('change', handlePeriodTypeChange);
     document.getElementById('periodValue').addEventListener('change', handlePeriodValueChange);
@@ -22,6 +31,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // 정렬 옵션
     document.getElementById('sortBy').addEventListener('change', sortTransactions);
 });
+
+// 로그아웃 확인 함수
+function confirmLogout() {
+    if (confirm('한지윤 로그아웃 하신다?')) {
+        auth.signOut().then(() => {
+            window.location.href = 'index.html';
+        }).catch((error) => {
+            console.error('로그아웃 오류:', error);
+        });
+    }
+}
 
 function initializePeriodSelectors() {
     const periodTypeSelect = document.getElementById('periodType');
