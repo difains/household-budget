@@ -39,6 +39,22 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('date').value = new Date().toISOString().split('T')[0];
 });
 
+// 로그아웃 확인 함수 추가
+function confirmLogout() {
+    if (confirm('한지윤 로그아웃 하신다?')) {
+        auth.signOut().then(() => {
+            window.location.href = 'index.html';
+        }).catch((error) => {
+            console.error('로그아웃 오류:', error);
+        });
+    }
+}
+
+// 로그아웃 함수 (기존 호환성을 위해 유지)
+function logout() {
+    confirmLogout();
+}
+
 function initializeCalendar() {
     const yearSelect = document.getElementById('yearSelect');
     const monthSelect = document.getElementById('monthSelect');
