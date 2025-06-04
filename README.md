@@ -2,7 +2,6 @@
 가계부 웹
 
 
-
 household-budget/
 ├── index.html (로그인 페이지)
 ├── signup.html (회원가입 페이지)
