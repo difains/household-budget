@@ -560,3 +560,14 @@ select:focus-visible {
     outline: 2px solid #0052CC;
     outline-offset: 2px;
 }
+
+/* 나눔스퀘어 폰트 적용 - 로그인 화면 서비스명만 */
+.app-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #0052CC;
+    margin-bottom: 48px;
+    font-family: 'NanumSquare', 'Pretendard', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
