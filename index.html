@@ -9,11 +9,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body>
     <div class="container">
         <div class="login-container">
             <h1 class="app-title">지윤이 도토리 창고</h1>
+            
+            <!-- Lottie 애니메이션 추가 -->
+            <div class="lottie-container">
+                <lottie-player 
+                    src="https://lottie.host/6b503a41-1958-4c4c-a22a-17e8d5fb6af8/oKjvHKfJlN.json"
+                    background="transparent"
+                    speed="1"
+                    style="width: 200px; height: 200px;"
+                    loop
+                    autoplay>
+                </lottie-player>
+            </div>
+            
             <form id="loginForm" class="auth-form">
                 <div class="input-group">
                     <input type="text" id="loginId" placeholder="아이디" required>
