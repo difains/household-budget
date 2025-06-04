@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>가계부 - 캘린더</title>
+    <title>지윤이 도토리 창고 - 캘린더</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -12,14 +15,34 @@
             <h1>가계부 캘린더</h1>
             <div class="nav-buttons">
                 <button onclick="location.href='dashboard.html'" class="nav-btn">대시보드</button>
-                <button onclick="logout()" class="nav-btn">로그아웃</button>
+                <button onclick="confirmLogout()" class="nav-btn logout-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 17L21 12L16 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
             </div>
         </header>
 
         <div class="calendar-header">
-            <button id="prevMonth" class="month-nav">&lt;</button>
-            <h2 id="currentMonth">2025년 6월</h2>
-            <button id="nextMonth" class="month-nav">&gt;</button>
+            <select id="yearSelect" class="calendar-dropdown">
+                <!-- 동적으로 생성됩니다 -->
+            </select>
+            <select id="monthSelect" class="calendar-dropdown">
+                <option value="0">1월</option>
+                <option value="1">2월</option>
+                <option value="2">3월</option>
+                <option value="3">4월</option>
+                <option value="4">5월</option>
+                <option value="5">6월</option>
+                <option value="6">7월</option>
+                <option value="7">8월</option>
+                <option value="8">9월</option>
+                <option value="9">10월</option>
+                <option value="10">11월</option>
+                <option value="11">12월</option>
+            </select>
         </div>
 
         <div class="calendar" id="calendar">

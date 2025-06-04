@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 })
                 .then(() => {
-                    alert('회원가입이 완료되었습니다!');
+                    alert('회원가입이 완료되었습니다. 다시 로그인해주세요.');
                     window.location.href = 'index.html';
                 })
                 .catch((error) => {
@@ -61,11 +61,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// 로그아웃 함수
+// 로그아웃 확인 함수
+function confirmLogout() {
+    if (confirm('한지윤 로그아웃 하신다?')) {
+        auth.signOut().then(() => {
+            window.location.href = 'index.html';
+        }).catch((error) => {
+            console.error('로그아웃 오류:', error);
+        });
+    }
+}
+
+// 로그아웃 함수 (기존 호환성을 위해 유지)
 function logout() {
-    auth.signOut().then(() => {
-        window.location.href = 'index.html';
-    }).catch((error) => {
-        console.error('로그아웃 오류:', error);
-    });
+    confirmLogout();
 }

@@ -7,22 +7,16 @@ document.addEventListener('DOMContentLoaded', function() {
     auth.onAuthStateChanged(function(user) {
         if (user) {
             currentUser = user;
+            initializeCalendar();
             loadTransactions();
         } else {
             window.location.href = 'index.html';
         }
     });
 
-    // 캘린더 네비게이션
-    document.getElementById('prevMonth').addEventListener('click', () => {
-        currentDate.setMonth(currentDate.getMonth() - 1);
-        renderCalendar();
-    });
-
-    document.getElementById('nextMonth').addEventListener('click', () => {
-        currentDate.setMonth(currentDate.getMonth() + 1);
-        renderCalendar();
-    });
+    // 년도/월 선택 이벤트
+    document.getElementById('yearSelect').addEventListener('change', handleDateChange);
+    document.getElementById('monthSelect').addEventListener('change', handleDateChange);
 
     // 거래 추가 버튼
     document.getElementById('addTransactionBtn').addEventListener('click', openModal);
@@ -43,9 +37,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 오늘 날짜로 초기화
     document.getElementById('date').value = new Date().toISOString().split('T')[0];
+});
+
+function initializeCalendar() {
+    const yearSelect = document.getElementById('yearSelect');
+    const monthSelect = document.getElementById('monthSelect');
+    const currentYear = new Date().getFullYear();
+    
+    // 년도 옵션 생성 (2020년부터 현재 년도까지)
+    for (let year = 2020; year <= currentYear; year++) {
+        const option = document.createElement('option');
+        option.value = year;
+        option.textContent = year + '년';
+        yearSelect.appendChild(option);
+    }
+    
+    // 현재 년도와 월로 설정
+    yearSelect.value = currentDate.getFullYear();
+    monthSelect.value = currentDate.getMonth();
     
     renderCalendar();
-});
+}
+
+function handleDateChange() {
+    const year = parseInt(document.getElementById('yearSelect').value);
+    const month = parseInt(document.getElementById('monthSelect').value);
+    
+    currentDate = new Date(year, month, 1);
+    renderCalendar();
+}
 
 function loadTransactions() {
     if (!currentUser) return;
@@ -71,10 +91,6 @@ function loadTransactions() {
 
 function renderCalendar() {
     const calendar = document.getElementById('calendar');
-    const monthHeader = document.getElementById('currentMonth');
-    
-    // 월 제목 업데이트
-    monthHeader.textContent = `${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월`;
     
     // 캘린더 초기화
     calendar.innerHTML = '';
@@ -85,8 +101,6 @@ function renderCalendar() {
         const dayHeader = document.createElement('div');
         dayHeader.className = 'calendar-day-header';
         dayHeader.textContent = day;
-        dayHeader.style.fontWeight = 'bold';
-        dayHeader.style.backgroundColor = '#f0f0f0';
         calendar.appendChild(dayHeader);
     });
     

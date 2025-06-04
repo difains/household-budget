@@ -1,5 +1,6 @@
 let currentUser = null;
-let currentPeriod = 'daily';
+let currentPeriodType = 'day';
+let currentPeriodValue = new Date().getDate();
 let transactions = [];
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -7,29 +8,91 @@ document.addEventListener('DOMContentLoaded', function() {
     auth.onAuthStateChanged(function(user) {
         if (user) {
             currentUser = user;
+            initializePeriodSelectors();
             loadTransactions();
         } else {
             window.location.href = 'index.html';
         }
     });
 
-    // 기간 선택 버튼
-    document.getElementById('dailyBtn').addEventListener('click', () => setPeriod('daily'));
-    document.getElementById('weeklyBtn').addEventListener('click', () => setPeriod('weekly'));
-    document.getElementById('monthlyBtn').addEventListener('click', () => setPeriod('monthly'));
+    // 기간 선택 이벤트
+    document.getElementById('periodType').addEventListener('change', handlePeriodTypeChange);
+    document.getElementById('periodValue').addEventListener('change', handlePeriodValueChange);
 
     // 정렬 옵션
     document.getElementById('sortBy').addEventListener('change', sortTransactions);
 });
 
-function setPeriod(period) {
-    currentPeriod = period;
+function initializePeriodSelectors() {
+    const periodTypeSelect = document.getElementById('periodType');
+    const periodValueSelect = document.getElementById('periodValue');
     
-    // 버튼 활성화 상태 변경
-    document.querySelectorAll('.period-btn').forEach(btn => btn.classList.remove('active'));
-    document.getElementById(period + 'Btn').classList.add('active');
+    // 초기 설정
+    updatePeriodValueOptions();
     
+    // 현재 날짜로 초기값 설정
+    const today = new Date();
+    periodTypeSelect.value = 'day';
+    periodValueSelect.value = today.getDate();
+}
+
+function handlePeriodTypeChange() {
+    currentPeriodType = document.getElementById('periodType').value;
+    updatePeriodValueOptions();
     loadTransactions();
+}
+
+function handlePeriodValueChange() {
+    currentPeriodValue = parseInt(document.getElementById('periodValue').value);
+    loadTransactions();
+}
+
+function updatePeriodValueOptions() {
+    const periodValueSelect = document.getElementById('periodValue');
+    const currentYear = new Date().getFullYear();
+    
+    periodValueSelect.innerHTML = '';
+    
+    switch (currentPeriodType) {
+        case 'day':
+            for (let i = 1; i <= 31; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i + '일';
+                periodValueSelect.appendChild(option);
+            }
+            currentPeriodValue = new Date().getDate();
+            break;
+        case 'week':
+            for (let i = 1; i <= 5; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i + '주';
+                periodValueSelect.appendChild(option);
+            }
+            currentPeriodValue = Math.ceil(new Date().getDate() / 7);
+            break;
+        case 'month':
+            for (let i = 1; i <= 12; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i + '월';
+                periodValueSelect.appendChild(option);
+            }
+            currentPeriodValue = new Date().getMonth() + 1;
+            break;
+        case 'year':
+            for (let i = 2020; i <= currentYear; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i + '년';
+                periodValueSelect.appendChild(option);
+            }
+            currentPeriodValue = currentYear;
+            break;
+    }
+    
+    periodValueSelect.value = currentPeriodValue;
 }
 
 function loadTransactions() {
@@ -58,25 +121,38 @@ function filterAndDisplayTransactions() {
     const now = new Date();
     let filteredTransactions = [];
 
-    switch (currentPeriod) {
-        case 'daily':
-            const today = now.toISOString().split('T')[0];
-            filteredTransactions = transactions.filter(t => t.date === today);
+    switch (currentPeriodType) {
+        case 'day':
+            const targetDate = new Date(now.getFullYear(), now.getMonth(), currentPeriodValue);
+            const dateString = targetDate.toISOString().split('T')[0];
+            filteredTransactions = transactions.filter(t => t.date === dateString);
             break;
-        case 'weekly':
-            const weekStart = new Date(now.setDate(now.getDate() - now.getDay()));
-            const weekEnd = new Date(now.setDate(now.getDate() - now.getDay() + 6));
+        case 'week':
+            const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+            const weekStart = new Date(firstDayOfMonth);
+            weekStart.setDate(weekStart.getDate() + (currentPeriodValue - 1) * 7);
+            const weekEnd = new Date(weekStart);
+            weekEnd.setDate(weekEnd.getDate() + 6);
+            
             filteredTransactions = transactions.filter(t => {
                 const transactionDate = new Date(t.date);
                 return transactionDate >= weekStart && transactionDate <= weekEnd;
             });
             break;
-        case 'monthly':
-            const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-            const monthEnd = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+        case 'month':
+            const monthStart = new Date(now.getFullYear(), currentPeriodValue - 1, 1);
+            const monthEnd = new Date(now.getFullYear(), currentPeriodValue, 0);
             filteredTransactions = transactions.filter(t => {
                 const transactionDate = new Date(t.date);
                 return transactionDate >= monthStart && transactionDate <= monthEnd;
+            });
+            break;
+        case 'year':
+            const yearStart = new Date(currentPeriodValue, 0, 1);
+            const yearEnd = new Date(currentPeriodValue, 11, 31);
+            filteredTransactions = transactions.filter(t => {
+                const transactionDate = new Date(t.date);
+                return transactionDate >= yearStart && transactionDate <= yearEnd;
             });
             break;
     }

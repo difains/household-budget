@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
     background-color: #f5f5f5;
     color: #333;
     line-height: 1.6;
@@ -33,7 +33,7 @@ body {
     font-size: 2.5rem;
     color: #4CAF50;
     margin-bottom: 40px;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .auth-form {
@@ -52,6 +52,7 @@ body {
     border: 2px solid #e0e0e0;
     border-radius: 10px;
     font-size: 16px;
+    font-family: 'Pretendard', sans-serif;
     transition: border-color 0.3s;
 }
 
@@ -65,7 +66,8 @@ body {
     border: none;
     border-radius: 10px;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 600;
+    font-family: 'Pretendard', sans-serif;
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -100,11 +102,13 @@ body {
 
 .header h1 {
     font-size: 1.5rem;
+    font-weight: 600;
 }
 
 .nav-buttons {
     display: flex;
     gap: 10px;
+    align-items: center;
 }
 
 .nav-btn {
@@ -115,33 +119,63 @@ body {
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .nav-btn:hover {
     background-color: rgba(255,255,255,0.3);
 }
 
+.logout-btn {
+    padding: 8px;
+    min-width: 36px;
+    min-height: 36px;
+}
+
 /* 대시보드 스타일 */
 .period-selector {
-    display: flex;
     padding: 20px;
+}
+
+.period-dropdown-group {
+    display: flex;
     gap: 10px;
 }
 
-.period-btn {
+.period-dropdown {
     flex: 1;
-    padding: 10px;
+    padding: 12px;
     border: 2px solid #e0e0e0;
     background-color: white;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
+    font-size: 16px;
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 500;
     transition: all 0.3s;
 }
 
-.period-btn.active {
-    background-color: #4CAF50;
-    color: white;
+.period-dropdown:focus {
+    outline: none;
     border-color: #4CAF50;
+}
+
+.sort-options {
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+
+.sort-options select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 500;
 }
 
 .summary-cards {
@@ -173,24 +207,13 @@ body {
 
 .summary-card h3 {
     font-size: 14px;
+    font-weight: 500;
     margin-bottom: 10px;
 }
 
 .summary-card p {
     font-size: 18px;
-    font-weight: bold;
-}
-
-.sort-options {
-    padding: 0 20px;
-    margin-bottom: 20px;
-}
-
-.sort-options select {
-    width: 100%;
-    padding: 10px;
-    border: 2px solid #e0e0e0;
-    border-radius: 5px;
+    font-weight: 700;
 }
 
 .transaction-list {
@@ -210,17 +233,19 @@ body {
 
 .transaction-info h4 {
     font-size: 16px;
+    font-weight: 600;
     margin-bottom: 5px;
 }
 
 .transaction-info p {
     font-size: 14px;
+    font-weight: 400;
     color: #666;
 }
 
 .transaction-amount {
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .transaction-amount.income {
@@ -234,17 +259,27 @@ body {
 /* 캘린더 스타일 */
 .calendar-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 20px;
+    gap: 15px;
 }
 
-.month-nav {
-    background: none;
-    border: none;
-    font-size: 24px;
+.calendar-dropdown {
+    padding: 10px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 600;
+    background-color: white;
     cursor: pointer;
-    color: #4CAF50;
+    transition: border-color 0.3s;
+}
+
+.calendar-dropdown:focus {
+    outline: none;
+    border-color: #4CAF50;
 }
 
 .calendar {
@@ -255,6 +290,14 @@ body {
     margin: 0 20px;
     border-radius: 10px;
     overflow: hidden;
+}
+
+.calendar-day-header {
+    background-color: #f0f0f0;
+    padding: 15px 5px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px;
 }
 
 .calendar-day {
@@ -281,6 +324,7 @@ body {
 .calendar-day.today {
     background-color: #4CAF50;
     color: white;
+    font-weight: 600;
 }
 
 .transaction-badge {
@@ -309,6 +353,7 @@ body {
     color: white;
     border: none;
     font-size: 24px;
+    font-weight: 600;
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     z-index: 1000;
@@ -336,6 +381,11 @@ body {
     position: relative;
 }
 
+.modal-content h3 {
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
 .close {
     position: absolute;
     right: 15px;
@@ -359,6 +409,7 @@ body {
     display: flex;
     align-items: center;
     cursor: pointer;
+    font-weight: 500;
 }
 
 /* 반응형 디자인 */
@@ -378,5 +429,9 @@ body {
     .floating-btn {
         right: 20px;
         bottom: 20px;
+    }
+    
+    .period-dropdown-group {
+        flex-direction: column;
     }
 }
