@@ -14,6 +14,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // 네비게이션 버튼 이벤트
+    document.getElementById('dashboardBtn').addEventListener('click', function() {
+        window.location.href = 'dashboard.html';
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', function() {
+        confirmLogout();
+    });
+
     // 년도/월 선택 이벤트
     document.getElementById('yearSelect').addEventListener('change', handleDateChange);
     document.getElementById('monthSelect').addEventListener('change', handleDateChange);
@@ -39,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('date').value = new Date().toISOString().split('T')[0];
 });
 
-// 로그아웃 확인 함수 추가
+// 로그아웃 확인 함수
 function confirmLogout() {
     if (confirm('한지윤 로그아웃 하신다?')) {
         auth.signOut().then(() => {
@@ -48,11 +57,6 @@ function confirmLogout() {
             console.error('로그아웃 오류:', error);
         });
     }
-}
-
-// 로그아웃 함수 (기존 호환성을 위해 유지)
-function logout() {
-    confirmLogout();
 }
 
 function initializeCalendar() {
