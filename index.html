@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가계부 - 로그인</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-container">
+            <h1 class="app-title">가계부</h1>
+            <form id="loginForm" class="auth-form">
+                <div class="input-group">
+                    <input type="text" id="loginId" placeholder="아이디" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="loginPassword" placeholder="비밀번호" required>
+                </div>
+                <button type="submit" class="btn-primary">로그인</button>
+                <button type="button" class="btn-secondary" onclick="location.href='signup.html'">회원가입</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

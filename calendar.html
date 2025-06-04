@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가계부 - 캘린더</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>가계부 캘린더</h1>
+            <div class="nav-buttons">
+                <button onclick="location.href='dashboard.html'" class="nav-btn">대시보드</button>
+                <button onclick="logout()" class="nav-btn">로그아웃</button>
+            </div>
+        </header>
+
+        <div class="calendar-header">
+            <button id="prevMonth" class="month-nav">&lt;</button>
+            <h2 id="currentMonth">2025년 6월</h2>
+            <button id="nextMonth" class="month-nav">&gt;</button>
+        </div>
+
+        <div class="calendar" id="calendar">
+            <!-- 캘린더가 여기에 생성됩니다 -->
+        </div>
+
+        <button id="addTransactionBtn" class="floating-btn">+</button>
+    </div>
+
+    <!-- 거래 입력 모달 -->
+    <div id="transactionModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>거래 입력</h3>
+            <form id="transactionForm">
+                <div class="input-group">
+                    <label>구분</label>
+                    <div class="radio-group">
+                        <input type="radio" id="income" name="type" value="income" checked>
+                        <label for="income">수입</label>
+                        <input type="radio" id="expense" name="type" value="expense">
+                        <label for="expense">지출</label>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="category" placeholder="항목" required>
+                </div>
+                <div class="input-group">
+                    <input type="number" id="amount" placeholder="금액" required>
+                </div>
+                <div class="input-group">
+                    <input type="date" id="date" required>
+                </div>
+                <div class="input-group">
+                    <textarea id="memo" placeholder="메모 (선택사항)"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">저장</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/calendar.js"></script>
+</body>
+</html>
